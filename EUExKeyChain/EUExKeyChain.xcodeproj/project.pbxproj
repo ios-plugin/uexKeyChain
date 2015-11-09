@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		42F3B9D01BEB44A000C2D35C /* EUExKeyChain.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42F3B9CF1BEB44A000C2D35C /* EUExKeyChain.h */; };
 		42F3B9D21BEB44A000C2D35C /* EUExKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3B9D11BEB44A000C2D35C /* EUExKeyChain.m */; };
 		42F3B9F91BEC2DC700C2D35C /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3B9F81BEC2DC700C2D35C /* UICKeyChainStore.m */; };
 /* End PBXBuildFile section */
@@ -16,10 +15,9 @@
 		42F3B9CA1BEB44A000C2D35C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				42F3B9D01BEB44A000C2D35C /* EUExKeyChain.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -262,7 +260,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -314,6 +312,7 @@
 				42F3B9D71BEB44A000C2D35C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
