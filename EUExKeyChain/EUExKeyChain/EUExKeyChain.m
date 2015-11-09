@@ -114,10 +114,6 @@ NSString * const kUexKeyChainTouchIDPromptKey        =@"TouchIDPrompt";
             keyChainItem.authenticationPrompt=info[kUexKeyChainTouchIDPromptKey];
         }
         NSString * value=[keyChainItem stringForKey:key error:&error];
-        if(error){
-           NSLog(@"222%@",error); 
-        }
-        
         if(!error && value){
             [result setValue:value forKey:kUexKeyChainValueKey];
             [result setValue:@(YES) forKey:kUexKeyChainSuccessKey];
