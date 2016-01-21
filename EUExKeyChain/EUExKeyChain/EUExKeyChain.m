@@ -20,11 +20,14 @@
 #define do_in_background_thread(x) (dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), x))
 
 
-@implementation EUExKeyChain
 
-NSString * const kUexKeyChainServiceKey              =@"service";
-NSString * const kUexKeyChainKeyKey                  =@"key";
-NSString * const kUexKeyChainValueKey                =@"value";
+
+@implementation EUExKeyChain
+static NSString * const kUexKeyChainDeviceUniqueIdentifierService = @"uexKeyChainDeviceUniqueIdentifierService";
+static NSString * const kUexKeyChainDeviceUniqueIdentifierKey = @"uexKeyChainDeviceUniqueIdentifierKey";
+NSString * const kUexKeyChainServiceKey = @"service";
+NSString * const kUexKeyChainKeyKey     = @"key";
+NSString * const kUexKeyChainValueKey   = @"value";
 NSString * const kUexKeyChainSuccessKey              =@"isSuccess";
 NSString * const kUexKeyChainErrorCodeKey            =@"errorCode";
 NSString * const kUexKeyChainErrorInfoKey            =@"errorInfo";
@@ -160,6 +163,25 @@ NSString * const kUexKeyChainTouchIDPromptKey        =@"TouchIDPrompt";
         [self callbackJsonWithName:@"cbSetItem" object:result];
     });
     
+}
+
+
+- (NSString *)getDeviceUniqueIdentifier:(NSMutableArray *)inArguments{
+    UICKeyChainStore *keychainItem = [UICKeyChainStore keyChainStoreWithService:kUexKeyChainDeviceUniqueIdentifierService];
+    NSString *uid = [keychainItem stringForKey:kUexKeyChainDeviceUniqueIdentifierKey];
+
+    if (uid.length < 32) {
+        uid = [NSUUID UUID].UUIDString;
+        uid = [uid stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        [keychainItem setAccessibility:UICKeyChainStoreAccessibilityAfterFirstUnlockThisDeviceOnly];
+        NSError *error;
+        [keychainItem setString:uid forKey:kUexKeyChainDeviceUniqueIdentifierKey error:&error];
+        if (error) {
+            return @"";
+        }
+    }
+    [self callbackJsonWithName:@"cbGetDeviceUniqueIdentifier" object:@{@"uid":uid}];
+    return uid;
 }
 
 #pragma mark - private method
