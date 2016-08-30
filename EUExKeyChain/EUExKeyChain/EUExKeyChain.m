@@ -12,10 +12,10 @@
 #import <AppCanKit/ACEXTScope.h>
 
 
-#define boolean_set_true_in_info(x) (info[x] && [info[x] boolValue])
 
-#define do_in_background_thread(x) (dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), x))
 
+#define UEX_BACKGROUND_OPERATION_BEGIN  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+#define UEX_BACKGROUND_OPERATION_END    });
 
 
 
@@ -47,62 +47,62 @@ static inline NSString * cbKeyPath(NSString *funcName){
 #pragma mark - uexAPIs
 
 - (void)setItem:(NSMutableArray *)inArguments{
-    
-    ACLogDebug(@"%@",NSStringFromSelector(_cmd));
-    
     ACArgsUnpack(NSDictionary *info,ACJSFunctionRef *cb) = inArguments;
-
     NSString *service = stringArg(info[kUexKeyChainServiceKey]);
     NSString *key = stringArg(info[kUexKeyChainKeyKey]);
     NSString *value = stringArg(info[kUexKeyChainValueKey]);
-    
     void (^callback)(BOOL isSuccess,NSError *error) = ^(BOOL isSuccess,NSError *error){
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        UEX_ERROR err = kUexNoError;
         [dict setValue:@(isSuccess) forKey:kUexKeyChainSuccessKey];
         [dict setValue:key forKey:kUexKeyChainKeyKey];
         [dict setValue:service forKey:kUexKeyChainServiceKey];
         if(isSuccess){
             [dict setValue:value forKey:kUexKeyChainValueKey];
-        }else if(error){
+        }else{
+            err = uexErrorMake(1,error.localizedDescription);
             [dict setValue:@(error.code) forKey:kUexKeyChainErrorCodeKey];
             [dict setValue:[error localizedDescription] forKey:kUexKeyChainErrorInfoKey];
         }
         [self.webViewEngine callbackWithFunctionKeyPath:cbKeyPath(@"cbSetItem") arguments:ACArgsPack(dict.ac_JSONFragment)];
-        [cb executeWithArguments:ACArgsPack(dict)];
+        
+        [cb executeWithArguments:ACArgsPack(err,dict)];
     };
-    
+
     
     if (!service || !key || !value) {
         callback(NO,argumentError());
         return;
     }
     
-    UICKeyChainStore *keyChainItem=[UICKeyChainStore keyChainStoreWithService:service];
-    do_in_background_thread(^{
-        if(boolean_set_true_in_info(kUexKeyChainTouchIDProtectedSyncKey) && [self isTouchIDAvailable]){
-            [keyChainItem setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+    UEX_BACKGROUND_OPERATION_BEGIN
+    UICKeyChainStore *keyChainItem = [UICKeyChainStore keyChainStoreWithService:service];
+    NSNumber *touchIDProtected = numberArg(info[kUexKeyChainTouchIDProtectedSyncKey]);
+    if(touchIDProtected.boolValue && [self isTouchIDAvailable]){
+        [keyChainItem setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                   authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-            
-        }else{
-            UICKeyChainStoreAccessibility accessibility = UICKeyChainStoreAccessibilityAfterFirstUnlock;
-            NSNumber *accessNum = numberArg(info[kUexKeyChainAccessibilityKey]);
-            if (accessNum) {
-                accessibility = [self accessibilityFromInteger:accessNum.integerValue];
-            }
-            [keyChainItem setAccessibility:accessibility];
-            if(boolean_set_true_in_info(kUexKeyChainICloudSyncKey)){
-                keyChainItem.synchronizable = YES;
-            }
+        
+    }else{
+        UICKeyChainStoreAccessibility accessibility = UICKeyChainStoreAccessibilityAfterFirstUnlock;
+        NSNumber *accessNum = numberArg(info[kUexKeyChainAccessibilityKey]);
+        if (accessNum) {
+            accessibility = [self accessibilityFromInteger:accessNum.integerValue];
         }
-        NSString * authenticationPrompt = stringArg(info[kUexKeyChainTouchIDPromptKey]);
-        if(authenticationPrompt && [self isTouchIDAvailable]){
-            keyChainItem.authenticationPrompt = authenticationPrompt;
+        [keyChainItem setAccessibility:accessibility];
+        NSNumber *iCloudSync = numberArg(info[kUexKeyChainICloudSyncKey]);
+        if (iCloudSync.boolValue) {
+            keyChainItem.synchronizable = YES;
         }
-
-        NSError *error = nil;
-        BOOL isSuccess = [keyChainItem setString:value forKey:key error:&error];
-        callback(isSuccess,error);
-    });
+    }
+    NSString * authenticationPrompt = stringArg(info[kUexKeyChainTouchIDPromptKey]);
+    if(authenticationPrompt && [self isTouchIDAvailable]){
+        keyChainItem.authenticationPrompt = authenticationPrompt;
+    }
+    
+    NSError *error = nil;
+    BOOL isSuccess = [keyChainItem setString:value forKey:key error:&error];
+    callback(isSuccess,error);
+    UEX_BACKGROUND_OPERATION_END
    
 }
 
@@ -115,17 +115,19 @@ static inline NSString * cbKeyPath(NSString *funcName){
     
     void (^callback)(BOOL isSuccess,NSError *error) = ^(BOOL isSuccess,NSError *error){
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        UEX_ERROR err = kUexNoError;
         [dict setValue:@(isSuccess) forKey:kUexKeyChainSuccessKey];
         [dict setValue:key forKey:kUexKeyChainKeyKey];
         [dict setValue:service forKey:kUexKeyChainServiceKey];
         if(isSuccess){
             [dict setValue:value forKey:kUexKeyChainValueKey];
-        }else if(error){
+        }else{
+            err = uexErrorMake(1,error.localizedDescription);
             [dict setValue:@(error.code) forKey:kUexKeyChainErrorCodeKey];
             [dict setValue:[error localizedDescription] forKey:kUexKeyChainErrorInfoKey];
         }
         [self.webViewEngine callbackWithFunctionKeyPath:cbKeyPath(@"cbGetItem") arguments:ACArgsPack(dict.ac_JSONFragment)];
-        [cb executeWithArguments:ACArgsPack(dict)];
+        [cb executeWithArguments:ACArgsPack(err,dict)];
     };
     
     if (!key || !service) {
@@ -133,17 +135,17 @@ static inline NSString * cbKeyPath(NSString *funcName){
         return;
     }
     
-    do_in_background_thread(^{
-        UICKeyChainStore *keyChainItem=[UICKeyChainStore keyChainStoreWithService:service];
-        NSError *error=nil;
-        NSString * authenticationPrompt = stringArg(info[kUexKeyChainTouchIDPromptKey]);
-        if(authenticationPrompt && [self isTouchIDAvailable]){
-            keyChainItem.authenticationPrompt = authenticationPrompt;
-        }
-        value = [keyChainItem stringForKey:key error:&error];
-        BOOL isSuccess = value && !error;
-        callback(isSuccess,error);
-    });
+    UEX_BACKGROUND_OPERATION_BEGIN
+    UICKeyChainStore *keyChainItem = [UICKeyChainStore keyChainStoreWithService:service];
+    NSError *error = nil;
+    NSString *authenticationPrompt = stringArg(info[kUexKeyChainTouchIDPromptKey]);
+    if(authenticationPrompt && [self isTouchIDAvailable]){
+        keyChainItem.authenticationPrompt = authenticationPrompt;
+    }
+    value = [keyChainItem stringForKey:key error:&error];
+    BOOL isSuccess = value && !error;
+    callback(isSuccess,error);
+    UEX_BACKGROUND_OPERATION_END
 
 }
 
@@ -157,28 +159,31 @@ static inline NSString * cbKeyPath(NSString *funcName){
 
     void (^callback)(BOOL isSuccess,NSError *error) = ^(BOOL isSuccess,NSError *error){
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        UEX_ERROR err = kUexNoError;
         [dict setValue:@(isSuccess) forKey:kUexKeyChainSuccessKey];
         [dict setValue:key forKey:kUexKeyChainKeyKey];
         [dict setValue:service forKey:kUexKeyChainServiceKey];
-        if(!isSuccess && error){
+        if(!isSuccess || error){
+            err = uexErrorMake(1,error.localizedDescription);
             [dict setValue:@(error.code) forKey:kUexKeyChainErrorCodeKey];
             [dict setValue:[error localizedDescription] forKey:kUexKeyChainErrorInfoKey];
         }
         [self.webViewEngine callbackWithFunctionKeyPath:cbKeyPath(@"cbRemoveItem") arguments:ACArgsPack(dict.ac_JSONFragment)];
-        [cb executeWithArguments:ACArgsPack(dict)];
+        [cb executeWithArguments:ACArgsPack(err,dict)];
     };
     
     
     if (!service || !key) {
         callback(NO,argumentError());
+        return;
     }
     
-    do_in_background_thread(^{
-        UICKeyChainStore *keyChainItem=[UICKeyChainStore keyChainStoreWithService:service];
-        NSError *error=nil;
-        BOOL isSuccess=[keyChainItem removeItemForKey:key error:&error];
-        callback(isSuccess,error);
-    });
+    UEX_BACKGROUND_OPERATION_BEGIN
+    UICKeyChainStore *keyChainItem=[UICKeyChainStore keyChainStoreWithService:service];
+    NSError *error=nil;
+    BOOL isSuccess=[keyChainItem removeItemForKey:key error:&error];
+    callback(isSuccess,error);
+    UEX_BACKGROUND_OPERATION_END
 }
 
 
