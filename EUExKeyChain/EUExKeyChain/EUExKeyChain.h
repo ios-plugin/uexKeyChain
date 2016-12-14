@@ -6,8 +6,7 @@
 //  Copyright © 2015年 AppCan. All rights reserved.
 //
 
-
-#import "EUExBase.h"
+#import <AppCanKit/AppCanKit.h>
 @interface EUExKeyChain : EUExBase
 
 

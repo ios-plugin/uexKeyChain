@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4288FC111D2F401F00386125 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4288FC101D2F401F00386125 /* AppCanKit.framework */; };
 		42F3B9D21BEB44A000C2D35C /* EUExKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3B9D11BEB44A000C2D35C /* EUExKeyChain.m */; };
 		42F3B9F91BEC2DC700C2D35C /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3B9F81BEC2DC700C2D35C /* UICKeyChainStore.m */; };
 /* End PBXBuildFile section */
@@ -24,23 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4288FC101D2F401F00386125 /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
 		42F3B9CC1BEB44A000C2D35C /* libuexKeyChain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexKeyChain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F3B9CF1BEB44A000C2D35C /* EUExKeyChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EUExKeyChain.h; sourceTree = "<group>"; };
 		42F3B9D11BEB44A000C2D35C /* EUExKeyChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EUExKeyChain.m; sourceTree = "<group>"; };
-		42F3B9D91BEB44C600C2D35C /* EUExBase+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EUExBase+Bundle.h"; sourceTree = "<group>"; };
-		42F3B9DA1BEB44C600C2D35C /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
-		42F3B9DB1BEB44C600C2D35C /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
-		42F3B9DC1BEB44C600C2D35C /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
-		42F3B9DD1BEB44C600C2D35C /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
-		42F3B9E01BEB44C600C2D35C /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		42F3B9E11BEB44C600C2D35C /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
-		42F3B9E21BEB44C600C2D35C /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5Digest.h; sourceTree = "<group>"; };
-		42F3B9E31BEB44C600C2D35C /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		42F3B9E41BEB44C600C2D35C /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		42F3B9E51BEB44C600C2D35C /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		42F3B9E61BEB44C600C2D35C /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		42F3B9E71BEB44C600C2D35C /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		42F3B9E81BEB44C600C2D35C /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		42F3B9E91BEB44C600C2D35C /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		42F3B9F71BEC2DC700C2D35C /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		42F3B9F81BEC2DC700C2D35C /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -51,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4288FC111D2F401F00386125 /* AppCanKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +65,7 @@
 		42F3B9CE1BEB44A000C2D35C /* EUExKeyChain */ = {
 			isa = PBXGroup;
 			children = (
-				42F3B9D81BEB44C600C2D35C /* engineHeader */,
+				4288FC101D2F401F00386125 /* AppCanKit.framework */,
 				42F3B9DE1BEB44C600C2D35C /* sourceCode */,
 				42F3B9CF1BEB44A000C2D35C /* EUExKeyChain.h */,
 				42F3B9D11BEB44A000C2D35C /* EUExKeyChain.m */,
@@ -84,43 +73,14 @@
 			path = EUExKeyChain;
 			sourceTree = "<group>";
 		};
-		42F3B9D81BEB44C600C2D35C /* engineHeader */ = {
-			isa = PBXGroup;
-			children = (
-				42F3B9D91BEB44C600C2D35C /* EUExBase+Bundle.h */,
-				42F3B9DA1BEB44C600C2D35C /* EUExBase.h */,
-				42F3B9DB1BEB44C600C2D35C /* EUExBaseDefine.h */,
-				42F3B9DC1BEB44C600C2D35C /* EUtility.h */,
-				42F3B9DD1BEB44C600C2D35C /* WidgetOneDelegate.h */,
-			);
-			path = engineHeader;
-			sourceTree = "<group>";
-		};
 		42F3B9DE1BEB44C600C2D35C /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
 				42F3B9F71BEC2DC700C2D35C /* UICKeyChainStore.h */,
 				42F3B9F81BEC2DC700C2D35C /* UICKeyChainStore.m */,
-				42F3B9DF1BEB44C600C2D35C /* JSON */,
 				42F3B9E91BEB44C600C2D35C /* PrefixHeader.pch */,
 			);
 			path = sourceCode;
-			sourceTree = "<group>";
-		};
-		42F3B9DF1BEB44C600C2D35C /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				42F3B9E01BEB44C600C2D35C /* JSON.h */,
-				42F3B9E11BEB44C600C2D35C /* JSONParser.h */,
-				42F3B9E21BEB44C600C2D35C /* MD5Digest.h */,
-				42F3B9E31BEB44C600C2D35C /* NSObject+SBJSON.h */,
-				42F3B9E41BEB44C600C2D35C /* NSString+SBJSON.h */,
-				42F3B9E51BEB44C600C2D35C /* SBJSON.h */,
-				42F3B9E61BEB44C600C2D35C /* SBJsonBase.h */,
-				42F3B9E71BEB44C600C2D35C /* SBJsonParser.h */,
-				42F3B9E81BEB44C600C2D35C /* SBJsonWriter.h */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,7 +183,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -260,7 +220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -271,6 +231,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = $SRCROOT/uexKeyChain;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EUExKeyChain",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExKeyChain/sourceCode/PrefixHeader.pch;
 				OTHER_LDFLAGS = "-ObjC";
@@ -284,6 +248,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = $SRCROOT/uexKeyChain;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EUExKeyChain",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExKeyChain/sourceCode/PrefixHeader.pch;
 				OTHER_LDFLAGS = "-ObjC";

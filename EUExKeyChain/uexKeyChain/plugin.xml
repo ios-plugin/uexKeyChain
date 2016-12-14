@@ -4,6 +4,6 @@
         <method name="setItem"></method>
 		<method name="getItem"></method>
         <method name="removeItem"></method>
-        <method name="getDeviceUniqueIdentifier" sync="ture"></method>
+        <method name="getDeviceUniqueIdentifier"></method>
 	</plugin>
 </uexplugins>
